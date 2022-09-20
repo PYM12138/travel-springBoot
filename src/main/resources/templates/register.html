@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>注册</title>
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <link rel="stylesheet" href="css/register.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <!--导入jquery-->
+    <script src="js/jquery-3.3.1.js"></script>
+</head>
+<body>
+<!--引入头部-->
+<div id="header"></div>
+<!-- 头部 end -->
+<div class="rg_layout">
+    <div class="rg_form clearfix">
+        <div class="rg_form_left">
+            <p>新用户注册</p>
+            <p>USER REGISTER</p>
+        </div>
+        <div class="rg_form_center">
+
+            <!--注册表单-->
+            <form id="registerForm">
+                <!--提交处理请求的标识符-->
+                <input type="hidden" name="action" value="register">
+                <table style="margin-top: 25px;">
+                    <tr>
+                        <td class="td_left">
+                            <label for="username">用户名</label>
+                        </td>
+                        <td class="td_right">
+                            <input type="text" id="username" name="username" placeholder="请输入账号">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_left">
+                            <label for="password">密码</label>
+                        </td>
+                        <td class="td_right">
+                            <input type="text" id="password" name="password" placeholder="请输入密码">
+                        </td>
+                    </tr>
+                    <tr class="has-error">
+                        <!--<td class="td_left" >
+                            <label for="email" class="has-error">Email</label>
+                        </td>
+                        <td class="td_right">
+                            <input type="text" id="email" name="email" placeholder="请输入Email">
+                            <span id="tip" class="help-block has-error"></span>
+                        </td>-->
+                        <td>
+                            <div class="form-group col-md-offset-2">
+                                <label for="email" class="col-sm-2 control-label">Email</label>
+                            </div>
+                        </td>
+                        <td>
+<!--                            todo 待完成的email样式-->
+                            <div class="col-md-12">
+                                <input type="text" class="form-control" name="email" id="email"
+                                       placeholder="xx@atguigu.com">
+                                <span class="help-block"></span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_left">
+                            <label for="name">姓名</label>
+                        </td>
+                        <td class="td_right">
+                            <input type="text" id="name" name="name" placeholder="请输入真实姓名">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_left">
+                            <label for="telephone">手机号</label>
+                        </td>
+                        <td class="td_right">
+                            <input type="text" id="telephone" name="telephone" placeholder="请输入您的手机号">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_left">
+                            <label for="sex">性别</label>
+                        </td>
+                        <td class="td_right gender">
+                            <input type="radio" id="sex" name="sex" value="男" checked> 男
+                            <input type="radio" name="sex" value="女"> 女
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_left">
+                            <label for="birthday">出生日期</label>
+                        </td>
+                        <td class="td_right">
+                            <input type="date" id="birthday" name="birthday" placeholder="年/月/日">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_left">
+                            <label for="check">验证码</label>
+                        </td>
+                        <td class="td_right check">
+                            <input type="text" id="check" name="check" class="check">
+                            <img src="checkCode" height="32px" alt="" onclick="changeCheckCode(this)">
+                            <script type="text/javascript">
+                                //图片点击事件
+                                function changeCheckCode(img) {
+                                    img.src = "checkCode?" + new Date().getTime();
+                                }
+                            </script>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_left">
+                        </td>
+                        <td class="td_right check">
+                            <input type="submit" class="submit" value="注册">
+                            <span id="msg" style="color: red;"></span>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div class="rg_form_right">
+            <p>
+                已有账号？
+                <a href="#">立即登录</a>
+            </p>
+        </div>
+    </div>
+</div>
+<!--引入尾部-->
+<div id="footer"></div>
+<!--导入布局js，共享header和footer-->
+<script type="text/javascript" src="js/include.js"></script>
+<script>
+    //1.校验邮箱
+    function validate_email() {
+        //获取输入的email
+        var email = $("#email").val();
+        var regxEmail = /^([a-zA-Z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
+        if (!regxEmail.test(email)) {
+            // alert("邮箱格式不正确！")
+            validate_info_warn("#email", "error", "邮箱格式不正确!");
+            return false;
+        } else {
+            validate_info_warn("#email", "success", "邮箱格式正确");
+        }
+        return true;
+    }
+
+    //检测邮箱是否有输入
+    $("#email").change(function () {
+        validate_email()
+    })
+
+    //数据校验信息提取
+    function validate_info_warn(ele, status, msg) {
+        //数据校验前先清空class，防止样式堆叠
+        $(ele).parent().removeClass("has-success has-error")
+        $(ele).next("span").text(msg);
+
+        if ("success" === status) {
+            $(ele).parent().addClass("has-success")
+            alert("123")
+            // $(ele).next("span").text("验证成功")
+            $("#tip").text(msg)
+
+        } else if ("error" === status) {
+            $(ele).parent().addClass("has-error")
+            alert("456")
+            $(ele).next("span").text(msg)
+        }
+
+    }
+
+
+    //2.校验用户名
+    //3.提交成功弹出警示框
+
+</script>
+
+</body>
+</html>
