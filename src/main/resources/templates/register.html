@@ -136,15 +136,21 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group has-feedback">
                         <label for="email" class="col-sm-2 control-label">邮箱</label>
                         <div class="col-sm-5">
-                            <input type="email" class="form-control" id="email" placeholder="Email">
+                            <input type="email" class="form-control" id="email" placeholder="xx@zz.com">
                         </div>
-                        <div class="col-sm-2" style="padding-left: 0;padding-right: 0;padding-top: 10px">
-                            <span></span>
+                        <div class="col-sm-2" style="padding-left: 0;padding-right: 0;padding-top: 5px">
+                            <span class="help-block"></span>
                         </div>
                     </div>
+                 <!--   <div class="form-group has-success has-feedback">
+                        <label class="control-label" for="inputSuccess2">Input with success</label>
+                        <input type="text" class="form-control" id="inputSuccess2" aria-describedby="inputSuccess2Status">
+                        &lt;!&ndash;<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                        <span id="inputSuccess2Status" class="sr-only">(success)</span>&ndash;&gt;
+                    </div>-->
                     <div class="form-group">
                         <label for="name" class="col-sm-2 control-label">姓名</label>
                         <div class="col-sm-5">
@@ -192,15 +198,6 @@
                             </script>
                         </div>
                     </div>
-                    <!--<div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox"> Remember me
-                                </label>
-                            </div>
-                        </div>
-                    </div>-->
                     <div class="col-sm-offset-2 col-sm-10">
                         <button type="submit" class="btn btn-primary">提交</button>
                     </div>
@@ -246,16 +243,28 @@
     function validate_info_warn(ele, status, msg) {
         //数据校验前先清空class，防止样式堆叠
         $(ele).parent().removeClass("has-success has-error")
-        $(ele).parent().last("div").next("span").text("msg111111111111111111111111111")
+        $(ele).parent().next().removeClass("has-success has-error")
+        //实验证明：每次定位元素之后，获取的内容都是元素里的内容，不包含它自身
+        /*原生js代码比较好解决，和innerHTML还有一个对应的outerHTML。但jquery就没有对应的方法于是对应了，只能间接去调用原生js语法jQuery.prop("outerHTML");
+　　从这点我们可以看出，jquery的prop()方法，实际上是在以js原生对象的方式操作节点。*/
+        //测试元素位置可以用html()+alert()的方式
+        $(ele).parent().next().children('span').text("")
+        //先删除原来的span标签 这个标签是用来添加醒目标识的
+        $(ele).next('span').remove()
+
+
 
         if ("success" === status) {
             $(ele).parent().addClass("has-success")
-            //可以考虑换成上一步在下一步
-            $(ele).parent.find("div").text(msg)
+            $(ele).parent().append("<span class=\"glyphicon glyphicon-ok form-control-feedback\" aria-hidden=\"true\"></span>")
+            $(ele).parent().next().addClass("has-success").children('span').text(msg)
+
 
         } else if ("error" === status) {
             $(ele).parent().addClass("has-error")
-            $(ele).parent.last().next("span").text(msg)
+            $(ele).parent().append("<span class=\"glyphicon glyphicon-remove form-control-feedback\" aria-hidden=\"true\"></span>")
+            $(ele).parent().next().addClass("has-error").children('span').text(msg)
+
         }
 
     }
