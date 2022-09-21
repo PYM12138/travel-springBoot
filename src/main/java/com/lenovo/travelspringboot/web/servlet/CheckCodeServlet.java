@@ -14,7 +14,7 @@ import java.util.Random;
 /**
  * 验证码
  */
-@WebServlet("/checkCode")
+@WebServlet("/checkCode")  //springboot中用servlet,要在启动类去扫描包，就和mybatis要用MapperScan一样
 public class CheckCodeServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
 		

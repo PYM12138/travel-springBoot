@@ -15,8 +15,9 @@
 }
 
 .rg_layout .rg_form > .rg_form_left{
-	width:256px;
-	float: left;
+/*	  >   指在指定范围内生效*/
+/*	width:256px;
+	float: left;*/
 	padding-top:20px;
 	padding-left: 20px;
 	box-sizing: border-box;
