@@ -250,11 +250,12 @@
 
         if ("success" === status) {
             $(ele).parent().addClass("has-success")
-            $(ele).parent().find("div").text(msg)
+            //可以考虑换成上一步在下一步
+            $(ele).parent.find("div").text(msg)
 
         } else if ("error" === status) {
             $(ele).parent().addClass("has-error")
-            $(ele).parent().last().next("span").text(msg)
+            $(ele).parent.last().next("span").text(msg)
         }
 
     }
