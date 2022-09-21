@@ -3,9 +3,9 @@
     <head>
         <meta charset="utf-8">
         <title>卓越旅游网-我的收藏</title>
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="css/common.css">
-        <link rel="stylesheet" href="css/index.css">
+        <link href="css/bootstrap.min.css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+        <link rel="stylesheet" type="text/css" href="css/common.css" th:href="@{/css/common.css}">
+        <link rel="stylesheet" href="css/index.css" th:href="@{/css/index.css}">
        <style>
            .tab-content .row>div {
             margin-top: 16px;
@@ -14,17 +14,18 @@
             margin-bottom: 36px;
            }
        </style>
-       <script src="js/jquery-3.3.1.js"></script>
+       <script src="js/jquery-3.3.1.js" th:src="@{/js/jquery-3.3.1.js}"></script>
     </head>
     <body>
     <!--引入头部-->
-    <div id="header"></div>
+    <div th:replace="common/header::commonHeader"></div>
+<!--    <div id="header"></div>-->
          <!-- 排行榜 start-->
         <section id="content">            
             <section class="hemai_jx">
                 <div class="jx_top">
                     <div class="jx_tit">
-                        <img src="images/icon_5.jpg" alt="">
+                        <img src="images/icon_5.jpg" th:src="@{/images/icon_5.jpg}" alt="">
                         <span>我的收藏</span>
                     </div>                    
                 </div>
@@ -35,7 +36,7 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <a href="route_detail.html">
-                                        <img src="images/collection_pic.jpg" alt="">
+                                        <img src="images/collection_pic.jpg" th:src="@{/images/collection_pic.jpg}" alt="">
                                         <div class="has_border">
                                             <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
                                             <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
@@ -44,7 +45,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <a href="route_detail.html">
-                                        <img src="images/collection_pic.jpg" alt="">
+                                        <img src="images/collection_pic.jpg" th:src="@{/images/collection_pic.jpg}" alt="">
                                         <div class="has_border">
                                             <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
                                             <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
@@ -53,7 +54,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <a href="route_detail.html">
-                                        <img src="images/collection_pic.jpg" alt="">
+                                        <img src="images/collection_pic.jpg" th:src="@{/images/collection_pic.jpg}" alt="">
                                         <div class="has_border">
                                             <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
                                             <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
@@ -62,7 +63,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <a href="route_detail.html">
-                                        <img src="images/collection_pic.jpg" alt="">
+                                        <img src="images/collection_pic.jpg" th:src="@{/images/collection_pic.jpg}" alt="">
                                         <div class="has_border">
                                             <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
                                             <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
@@ -71,7 +72,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <a href="route_detail.html">
-                                        <img src="images/collection_pic.jpg" alt="">
+                                        <img src="images/collection_pic.jpg" th:src="@{/images/collection_pic.jpg}" alt="">
                                         <div class="has_border">
                                             <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
                                             <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
@@ -80,7 +81,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <a href="route_detail.html">
-                                        <img src="images/collection_pic.jpg" alt="">
+                                        <img src="images/collection_pic.jpg" th:src="@{/images/collection_pic.jpg}" alt="">
                                         <div class="has_border">
                                             <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
                                             <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
@@ -89,7 +90,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <a href="route_detail.html">
-                                        <img src="images/collection_pic.jpg" alt="">
+                                        <img src="images/collection_pic.jpg" th:src="@{/images/collection_pic.jpg}" alt="">
                                         <div class="has_border">
                                             <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
                                             <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
@@ -98,7 +99,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <a href="route_detail.html">
-                                        <img src="images/collection_pic.jpg" alt="">
+                                        <img src="images/collection_pic.jpg" th:src="@{/images/collection_pic.jpg}" alt="">
                                         <div class="has_border">
                                             <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
                                             <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
@@ -107,7 +108,7 @@
                                 </div>
                                  <div class="col-md-3">
                                     <a href="route_detail.html">
-                                        <img src="images/collection_pic.jpg" alt="">
+                                        <img src="images/collection_pic.jpg" th:src="@{/images/collection_pic.jpg}" alt="">
                                         <div class="has_border">
                                             <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
                                             <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
@@ -116,7 +117,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <a href="route_detail.html">
-                                        <img src="images/collection_pic.jpg" alt="">
+                                        <img src="images/collection_pic.jpg" th:src="@{/images/collection_pic.jpg}" alt="">
                                         <div class="has_border">
                                             <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
                                             <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
@@ -125,7 +126,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <a href="route_detail.html">
-                                        <img src="images/collection_pic.jpg" alt="">
+                                        <img src="images/collection_pic.jpg" th:src="@{/images/collection_pic.jpg}" alt="">
                                         <div class="has_border">
                                             <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
                                             <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
@@ -133,8 +134,8 @@
                                     </a>
                                 </div>
                                 <div class="col-md-3">
-                                    <a href="jroute_detail.html">
-                                        <img src="images/collection_pic.jpg" alt="">
+                                    <a href="jroute_detail.html" th:href="@{/jroute_detail.html}">
+                                        <img src="images/collection_pic.jpg" th:src="@{/images/collection_pic.jpg}" alt="">
                                         <div class="has_border">
                                             <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
                                             <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
@@ -168,8 +169,9 @@
         <!-- 排行榜 end-->
     	
          <!--引入尾部-->
-    	<div id="footer"></div>
+<!--    	<div id="footer"></div>-->
+     <div th:replace="common/footer::commonFooter"></div>
         <!--导入布局js，共享header和footer-->
-        <script type="text/javascript" src="js/include.js"></script>
+<!--        <script type="text/javascript" src="js/include.js" th:src="@{/js/include.js}"></script>-->
     </body>
 </html>

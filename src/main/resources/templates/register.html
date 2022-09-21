@@ -3,15 +3,16 @@
 <head>
     <meta charset="utf-8">
     <title>注册</title>
-    <link rel="stylesheet" type="text/css" href="css/common.css">
-    <link rel="stylesheet" href="css/register.css">
+    <link rel="stylesheet" type="text/css" href="css/common.css" th:href="@{/css/common.css}">
+    <link rel="stylesheet" href="css/register.css" th:href="@{/css/register.css}">
     <link href="css/bootstrap.min.css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <!--导入jquery-->
-    <script src="js/jquery-3.3.1.js"></script>
+    <script src="js/jquery-3.3.1.js" th:href="@{/js/jquery-3.3.1.js}"></script>
 </head>
 <body>
 <!--引入头部-->
-<div id="header"></div>
+<!--<div id="header"></div>-->
+<div th:replace="common/header::commonHeader"></div>
 <!-- 头部 end -->
 <div class="rg_layout">
     <div class="rg_form clearfix">
@@ -123,20 +124,20 @@
                 </table>-->
                 <form>
                     <div class="form-group">
-                        <label for="username" class="col-sm-2 control-label">username</label>
+                        <label for="username" class="col-sm-2 control-label">用户名</label>
                         <div class="col-sm-5">
                             <input type="text" class="form-control" id="username" placeholder="username">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="password" class="col-sm-2 control-label">Password</label>
+                        <label for="password" class="col-sm-2 control-label">密码</label>
                         <div class="col-sm-5">
                             <input type="password" class="form-control" id="password" placeholder="Password">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="email" class="col-sm-2 control-label">Email</label>
+                        <label for="email" class="col-sm-2 control-label">邮箱</label>
                         <div class="col-sm-5">
                             <input type="email" class="form-control" id="email" placeholder="Email">
                         </div>
@@ -190,8 +191,6 @@
                             </script>
                         </div>
                     </div>
-
-
                     <!--<div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
                             <div class="checkbox">
@@ -202,26 +201,25 @@
                         </div>
                     </div>-->
                     <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-default">Sign in</button>
+                        <button type="submit" class="btn btn-primary">提交</button>
                     </div>
-                   <!-- <div class="form-group">
 
-                    </div>-->
                 </form>
+                <div class="rg_form_right col-sm-offset-9">
+                    <p>
+                        已有账号？
+                        <a href="#">立即登录</a>
+                    </p>
+                </div>
             </form>
         </div>
-        <div class="rg_form_right">
-            <p>
-                已有账号？
-                <a href="#">立即登录</a>
-            </p>
-        </div>
+
     </div>
 </div>
 <!--引入尾部-->
-<div id="footer"></div>
-<!--导入布局js，共享header和footer-->
-<script type="text/javascript" src="js/include.js"></script>
+<!--<div id="footer"></div>
+&lt;!&ndash;导入布局js，共享header和footer&ndash;&gt;
+<script type="text/javascript" src="js/include.js"></script>-->
 <script>
     //1.校验邮箱
     function validate_email() {
@@ -263,11 +261,10 @@
 
     }
 
-
     //2.校验用户名
     //3.提交成功弹出警示框
 
 </script>
-
+<div th:replace="common/footer::commonFooter"></div>
 </body>
 </html>

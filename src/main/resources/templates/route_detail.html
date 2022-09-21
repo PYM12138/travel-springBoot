@@ -4,14 +4,15 @@
 <head>
     <meta charset="utf-8">
     <title>路线详情</title>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/common.css">
-    <link rel="stylesheet" type="text/css" href="css/route-detail.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" href="css/common.css" th:href="@{/css/common.css}">
+    <link rel="stylesheet" type="text/css" href="css/route-detail.css" th:href="@{/css/route-detail.css}">
 </head>
 
 <body>
 <!--引入头部-->
-<div id="header"></div>
+<!--<div id="header"></div>-->
+<div th:replace="common/header::commonHeader"></div>
     <!-- 详情 start -->   
     <div class="wrap">
         <div class="bread_box">
@@ -103,13 +104,14 @@
     <!-- 详情 end -->
 
     <!--引入头部-->
-    <div id="footer"></div>
+<!--    <div id="footer"></div>-->
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="js/jquery-3.3.1.js"></script>
+    <script src="js/jquery-3.3.1.js" th:src="@{/js/jquery-3.3.1.js}"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
     <!--导入布局js，共享header和footer-->
-    <script type="text/javascript" src="js/include.js"></script>
+<!--    <script type="text/javascript" src="js/include.js"></script>-->
+    <div th:replace="common/footer::commonFooter"></div>
     <script>
     $(document).ready(function() {
         //焦点图效果
