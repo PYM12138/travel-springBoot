@@ -22,9 +22,6 @@
         </div>
         <div>
             <!--注册表单-->
-            <form id="registerForm" class="form-horizontal col-sm-offset-3">
-                <!--提交处理请求的标识符-->
-                <input type="hidden" name="action" value="register">
                <!-- <table style="margin-top: 25px;">
                     <tr>
                         <td class="td_left">
@@ -122,11 +119,14 @@
                         </td>
                     </tr>
                 </table>-->
-                <form>
+
+                <form class="form-horizontal col-sm-offset-3" id="registerForm">
+                    <!--提交处理请求的标识符，还未用到，猜测标识符的作用：和Login共用一个方法，若有此标识符则走A方法，否则走B-->
+                    <input type="hidden" name="action" value="register">
                     <div class="form-group has-feedback">
                         <label for="username" class="col-sm-2 control-label">用户名</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" id="username" placeholder="username">
+                            <input type="text" class="form-control" name="username" id="username" placeholder="username">
                         </div>
                         <div class="col-sm-5" style="padding-left: 0;padding-right: 0;padding-top: 2px">
                             <span class="help-block">英文和数字3~16位或中文2~5位</span>
@@ -135,46 +135,44 @@
                     <div class="form-group">
                         <label for="password" class="col-sm-2 control-label">密码</label>
                         <div class="col-sm-5">
-                            <input type="password" class="form-control" id="password" placeholder="Password">
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Password">
                         </div>
                     </div>
 
                     <div class="form-group has-feedback">
                         <label for="email" class="col-sm-2 control-label">邮箱</label>
                         <div class="col-sm-5">
-                            <input type="email" class="form-control" id="email" placeholder="xx@zz.com">
+                            <input type="email" class="form-control" name="email" id="email" placeholder="xx@zz.com">
                         </div>
                         <div class="col-sm-2" style="padding-left: 0;padding-right: 0;">
                             <span class="help-block"></span>
                         </div>
                     </div>
-                 <!--   <div class="form-group has-success has-feedback">
-                        <label class="control-label" for="inputSuccess2">Input with success</label>
-                        <input type="text" class="form-control" id="inputSuccess2" aria-describedby="inputSuccess2Status">
-                        &lt;!&ndash;<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
-                        <span id="inputSuccess2Status" class="sr-only">(success)</span>&ndash;&gt;
-                    </div>-->
-                    <div class="form-group">
+                    <div class="form-group has-feedback">
                         <label for="name" class="col-sm-2 control-label">姓名</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" id="name" placeholder="realName">
+                            <input type="text" class="form-control" name="name" id="name" placeholder="realName">
+                        </div>
+                        <div class="col-sm-2" style="padding-left: 0;padding-right: 0;">
+                            <span class="help-block"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="telephone" class="col-sm-2 control-label">手机号</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" id="telephone" placeholder="telephone">
+                            <input type="text" class="form-control" name="telephone" id="telephone" placeholder="telephone">
                         </div>
+
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">性别</label>
                         <div class="col-sm-10">
                             <div class="checkbox">
                                 <label class="radio-inline">
-                                    <input type="radio" name="gender" id="input_add_btn1" value="M" checked="checked"> 男
+                                    <input type="radio" name="sex"  id="input_add_btn1" value="M" checked="checked"> 男
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="gender" id="input_add_btn2" value="F"> 女
+                                    <input type="radio" name="sex" id="input_add_btn2" value="F"> 女
                                 </label>
                             </div>
                         </div>
@@ -182,7 +180,7 @@
                     <div class="form-group">
                         <label for="birthday" class="col-sm-2 control-label">出生日期</label>
                         <div class="col-sm-5">
-                            <input type="date" class="form-control" style="line-height: normal" id="birthday" placeholder="年/月/日">
+                            <input type="date" class="form-control" style="line-height: normal" name="birthday" id="birthday" placeholder="年/月/日">
                         </div>
                     </div>
 
@@ -202,7 +200,7 @@
                         </div>
                     </div>
                     <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-primary" id="submitRegister">提交</button>
+                        <button type="button" class="btn btn-primary" id="submitRegister">提交</button>
                     </div>
 
                 </form>
@@ -212,7 +210,7 @@
                         <a href="#">立即登录</a>
                     </p>
                 </div>
-            </form>
+
         </div>
 
     </div>
@@ -246,7 +244,7 @@
 
 
     //2.校验用户名
-    function validate_name() {
+   /* function validate_name() {
         var username = $("#username").val();
         //必须是英文和数字3-16位或中文2-5位
         var regxUsername=/(^[a-zA-Z0-9_-]{3,16}$)|(^[\u2E80-\u9FFF]{2,5})/;
@@ -258,7 +256,7 @@
             validate_info_warn("#username","success","用户名可用")
         }
         return true
-    }
+    }*/
     $("#username").on("input", function(){
         validate_name()
     })
@@ -292,21 +290,43 @@
     }
     //3.提交成功弹出警示框
     $("#submitRegister").click(function () {
-        if (validate_email()&&validate_name()){
+        if (validate_email()){//&&validate_name()
             //都通过的情况
             // alert("提交成功！")
             $.ajax({
-                url:"/checkEmpName",
+                url:"/addUser",
                 data:$("#registerForm").serialize(),
                 type:"POST",
+                //使用post时,必须这么写:application/x-www-form-urlencoded
+                // contentType: "application/x-www-form-urlencoded",
                 success:function (result) {//通过自定义的状态码来显示对应的信息
-                    if (result.code===100){
 
+                    if (result.code===100){
+                        alert(result.code)
+                        alert("注册成功")
+                        location.href="/register_ok.html";
                     }else{
+                        alert("注册失败")
+                        //这边要进行二次验证，验证信息从后台传过来
+                        if (result.extend.errorField.email!==undefined){
+                            validate_info_warn("#email","error",result.extend.errorField.email)
+
+                        }
+                        if (result.extend.errorField.username!==undefined){
+                            validate_info_warn("#username","error",result.extend.errorField.username)
+                        }
+                        if (result.extend.errorField.name!==undefined){
+                            validate_info_warn("#name","error",result.extend.errorField.name)
+                        }
 
                     }
-
-                }
+                },
+               /* error:function (result) {
+                    alert(result.extend.errorField+"22222")
+                    alert(result.extend.errorField.username+"8888")
+                    alert(result.extend.errorField.email+"9999")
+                    alert(result.code)
+                }*/
             })
         }else{
             //不通过的情况
