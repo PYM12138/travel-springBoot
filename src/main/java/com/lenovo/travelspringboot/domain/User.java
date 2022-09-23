@@ -3,6 +3,7 @@ package com.lenovo.travelspringboot.domain;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
@@ -15,10 +16,10 @@ public class User implements Serializable {
     private String username;//用户名，账号
     private String password;//密码
     @NotEmpty(message = "name不能为空！")
-    @Length(min = 5,max = 10,message = "name长度不够！")
     private String name;//真实姓名
     private String birthday;//出生日期
     private String sex;//男或女
+    @Min(value = 11,message = "请输入11位手机号码")
     private String telephone;//手机号
     @Pattern(regexp = "^([a-zA-Z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$",message = "邮箱格式不正确!")
     private String email;//邮箱
