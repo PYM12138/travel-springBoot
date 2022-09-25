@@ -8,8 +8,16 @@
     <link href="css/bootstrap.min.css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <!--导入jquery-->
     <script src="js/jquery-3.3.1.js" th:href="@{/js/jquery-3.3.1.js}"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        * { min-height: 0; }
+    </style>
 </head>
 <body>
+
 <!--引入头部-->
 <!--<div id="header"></div>-->
 <div th:replace="common/header::commonHeader"></div>
@@ -17,8 +25,8 @@
 <div class="rg_layout">
     <div class="rg_form clearfix">
         <div class="rg_form_left">
-            <p>新用户注册</p>
-            <p>USER REGISTER</p>
+            <p style="width: 850px">新用户注册</p>
+            <p style="width: 850px">USER REGISTER</p>
         </div>
         <div>
                <!--注册表单-->
@@ -122,17 +130,17 @@
 
             <form class="form-horizontal col-sm-offset-3" id="registerForm">
                 <!--提交处理请求的标识符，还未用到，猜测标识符的作用：和Login共用一个方法，若有此标识符则走A方法，否则走B-->
-                <input type="hidden" name="action" value="register">
+<!--                <input type="hidden" name="action" value="register">-->
                 <div class="form-group has-feedback">
                     <label for="username" class="col-sm-2 control-label">用户名</label>
                     <div class="col-sm-5">
                         <input type="text" class="form-control" name="username" id="username" placeholder="username">
                     </div>
-                    <div class="col-sm-5" style="padding-left: 0;padding-right: 0;padding-top: 2px">
+                    <div class="col-sm-5" style="padding-left: 0;padding-right: 0;">
                         <span class="help-block">英文和数字3~16位或中文2~5位</span>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group has-feedback">
                     <label for="password" class="col-sm-2 control-label">密码</label>
                     <div class="col-sm-5">
                         <input type="password" class="form-control" name="password" id="password" placeholder="Password">
@@ -337,7 +345,7 @@
                     if (result.code===100){
                         // alert(result.code)
                         alert("注册成功")
-                        location.reload()
+                        // location.reload()
                         location.href="/register_ok.html";
                     }else{
                         alert("注册失败")
@@ -353,6 +361,10 @@
                         }
                         if (result.extend.errorField.telephone!==undefined){
                             validate_info_warn("#telephone","error",result.extend.errorField.telephone)
+                        }
+
+                        if (result.extend.checkCode!==undefined){
+                            alert(result.extend.checkCode);
                         }
 
                     }

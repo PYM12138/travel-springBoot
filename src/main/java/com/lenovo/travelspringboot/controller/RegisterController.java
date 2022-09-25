@@ -20,6 +20,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+/**
+ * @author P._Ming
+ * */
 
 @Controller
 public class RegisterController {
@@ -29,27 +32,36 @@ public class RegisterController {
 
     @PostMapping("/addUser")
     @ResponseBody
-    public Msg addUser(@Valid User user, BindingResult bindingResult){
-
-        if (bindingResult.hasErrors()){//有错误信息
-            //保存信息并传到前台
-            Map<String, Object> map = new HashMap<>();
-            //首先获取错误信息
-            List<FieldError> fieldErrors = bindingResult.getFieldErrors();
-            for (FieldError fieldError : fieldErrors) {//循环获取每一个错误
-                System.out.println("错误的字段名:"+fieldError.getField());
-                System.out.println("错误的信息提示:"+fieldError.getDefaultMessage());
-                map.put(fieldError.getField(),fieldError.getDefaultMessage());
-            }
-            return Msg.fail().add("errorField",map);
-
-        }else{
-            String gender=user.getSex() .equals("M") ? "男" : "女";
-            user.setSex(gender);
+    public Msg addUser(@Valid User user, BindingResult bindingResult,String check){
+        //BindingResult 这个必须要放在参数第二位
+        System.out.println("check:"+check);
+        String flagForCheck = CheckCodeServlet.flagForCheck;
+        boolean checkCodeFlag = check.equals(flagForCheck);
+            if (bindingResult.hasErrors()){//有错误信息
+                //保存信息并传到前台
+                Map<String, Object> map = new HashMap<>();
+                //首先获取错误信息
+                List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+                for (FieldError fieldError : fieldErrors) {//循环获取每一个错误
+                    System.out.println("错误的字段名:"+fieldError.getField());
+                    System.out.println("错误的信息提示:"+fieldError.getDefaultMessage());
+                    map.put(fieldError.getField(),fieldError.getDefaultMessage());
+                }
+                return Msg.fail().add("errorField",map);
+            }else{
+                if (!checkCodeFlag){
+                    return Msg.fail().add("checkCode","验证码有误！");
+                }
+                String gender=user.getSex() .equals("M") ? "男" : "女";
+                user.setSex(gender);
 //            userHandleService.addUserForRegister(user);
-            System.out.println(user);
-            return Msg.success();
-        }
+                System.out.println(user);
+                return Msg.success();
+            }
+
+
+
+
 
     }
 

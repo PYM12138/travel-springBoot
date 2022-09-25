@@ -19,7 +19,7 @@ public class User implements Serializable {
     private String name;//真实姓名
     private String birthday;//出生日期
     private String sex;//男或女
-    @Min(value = 11,message = "请输入11位手机号码")
+    @Pattern(regexp = "^[1][3,4,5,7,8][0-9]{9}$",message = "请输入11位手机号码")
     private String telephone;//手机号
     @Pattern(regexp = "^([a-zA-Z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$",message = "邮箱格式不正确!")
     private String email;//邮箱
