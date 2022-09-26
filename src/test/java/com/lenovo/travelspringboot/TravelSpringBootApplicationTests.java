@@ -13,8 +13,10 @@ class TravelSpringBootApplicationTests {
 
     @Test
     void contextLoads() {
-        User user = new User(0,"123","123445","wuyifan","1922/10/11","男","14812521616","16@qq.com","Y","11111");
-        userDaoInterface.addUserSingle(user);
+     /*   User user = new User(0,"123","123445","wuyifan","1922/10/11","男","14812521616","16@qq.com","Y","11111");
+        userDaoInterface.addUserSingle(user);*/
+//        String user = userDaoInterface.selectUsername("123");
+
     }
 
 }

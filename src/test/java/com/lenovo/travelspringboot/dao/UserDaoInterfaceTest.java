@@ -7,6 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserDaoInterfaceTest {
+   /* @Autowired
+    UserDaoInterface userDaoInterface;
+    @Test
+    void selectUsername() {
+        User user = userDaoInterface.selectUsername("123");
+        System.out.println(user.getUsername());
+    }*/
   /*  @Autowired
     UserDaoInterface userDaoInterface;
 
