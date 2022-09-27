@@ -5,11 +5,15 @@ import com.lenovo.travelspringboot.domain.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 @SpringBootTest
 class TravelSpringBootApplicationTests {
     @Autowired
     UserDaoInterface userDaoInterface;
+    @Autowired
+    private JavaMailSenderImpl javaMailSender;
 
     @Test
     void contextLoads() {
@@ -18,5 +22,15 @@ class TravelSpringBootApplicationTests {
 //        String user = userDaoInterface.selectUsername("123");
 
     }
+    @Test
+    public void sendMessage(){
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setSubject("这是一个标题");
+        message.setText("这是邮箱正文的内容");
+        message.setFrom("1602315416@qq.com");//发送者的邮箱地址
+        message.setTo("1602315416@qq.com"); //接收者的邮箱地址
+        javaMailSender.send(message);
+    }
+
 
 }

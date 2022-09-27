@@ -345,12 +345,14 @@
                     if (result.code===100){
                         // alert(result.code)
                         alert("注册成功")
-                        var s = prompt("请输入邮箱激活码(五分钟内有效！):");
+                        var emailCode = prompt("已向你的邮箱地址发送激活码，请输入:(三分钟内有效！)");
                         $.ajax({
-                            url:"/test/"+s,
+                            url:"/emailCodeCheck/"+emailCode,
                             type: "GET",
-                            complete:function(){
-                                alert("提交完毕")
+                            /*data:{"code":emailCode},
+                            dataType:"json",*/
+                            success:function () {
+                                //当激活码提交之后，后台验证并返回结果 msg.success,msg.fail
                             }
 
                             }

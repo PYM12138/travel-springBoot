@@ -46,7 +46,15 @@ spring:
         login-password: 123
   thymeleaf:
     cache: false
-    excluded-view-names:
-      - test/*
+  mail:
+    host: smtp.qq.com
+    username: 1602315416@qq.com
+    password: kkszhjapwpusgfcg
+
+#    excluded-view-names:
+#      - test
 server:
   port: 80
+
+
+

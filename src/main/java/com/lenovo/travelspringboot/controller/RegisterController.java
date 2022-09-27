@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.ServletException;
@@ -77,10 +78,12 @@ public class RegisterController {
 
     }
 
-    @GetMapping("/test/{code}")
-//    @ResponseBody
-    public String test1(@PathVariable("code") String code){
-        System.out.println(code);
-        return null;
+    @GetMapping("/emailCodeCheck")
+    @ResponseBody
+    public Msg activeCode(@RequestParam("emailCode") String emailCode){
+
+
+
+        return Msg.success();
     }
 }
