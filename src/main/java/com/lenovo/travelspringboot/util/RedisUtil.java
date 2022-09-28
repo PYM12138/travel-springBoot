@@ -4,6 +4,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 @Component
@@ -16,7 +17,7 @@ public class RedisUtil {
         String createTimeKey=email+":createTime";
         String expireTimeKey=email+":expireTime";
         String statusKey=email+":statusKey";
-        if (stringRedisTemplate.hasKey(statusKey)&&stringRedisTemplate.opsForValue().get(statusKey).equals("1")){
+        if (Boolean.TRUE.equals(stringRedisTemplate.hasKey(statusKey)) && Objects.equals(stringRedisTemplate.opsForValue().get(statusKey), "1")){
             System.out.println("已注册");
             return false;
         }
