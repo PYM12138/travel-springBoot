@@ -78,12 +78,5 @@ public class RegisterController {
 
     }
 
-    @GetMapping("/emailCodeCheck")
-    @ResponseBody
-    public Msg activeCode(@RequestParam("emailCode") String emailCode){
 
-
-
-        return Msg.success();
-    }
 }
