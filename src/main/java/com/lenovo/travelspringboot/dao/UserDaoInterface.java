@@ -1,12 +1,7 @@
 package com.lenovo.travelspringboot.dao;
 
 import com.lenovo.travelspringboot.domain.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-
+import org.apache.ibatis.annotations.*;
 
 
 @Mapper
@@ -17,7 +12,10 @@ public interface UserDaoInterface {
             "values(#{username},#{password},#{name},#{birthday},#{sex},#{telephone},#{email},#{status},#{code})")
     void addUserSingle(User user);
 
-    //查询用户名
+    //查询用户名 return 值 存在 或者 return null 不存在
     @Select("select username from tab_user where username=#{username}")
     String selectUsername(String username);
+
+    @Update("update tab_user set status=#{status} where username=#{username} and email=#{email}")
+    void updateStatus(String status,String username,String email);
 }

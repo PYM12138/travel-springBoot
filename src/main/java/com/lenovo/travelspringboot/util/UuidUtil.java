@@ -14,9 +14,11 @@ public final class UuidUtil {
 	 * 测试
 	 */
 	public static void main(String[] args) {
-		System.out.println(UuidUtil.getUuid());
-		System.out.println(UuidUtil.getUuid());
-		System.out.println(UuidUtil.getUuid());
-		System.out.println(UuidUtil.getUuid());
+		String substring = UuidUtil.getUuid().substring(0, 5);
+		System.out.println(substring);
+//		System.out.println(UuidUtil.getUuid());
+//		System.out.println(UuidUtil.getUuid());
+//		System.out.println(UuidUtil.getUuid());
+//		System.out.println(UuidUtil.getUuid());
 	}
 }

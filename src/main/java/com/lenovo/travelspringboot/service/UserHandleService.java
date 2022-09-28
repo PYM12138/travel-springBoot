@@ -16,11 +16,11 @@ public class UserHandleService {
         userDaoInterface.addUserSingle(user);
     }
     /**
-     * @return true 代表用户名不存在 false 代表存在
+     * @return false 用户名存在，true 用户名不存在
      * */
     public Boolean selectUsername(String username){
         String s = userDaoInterface.selectUsername(username);
-        return "".equals(s);
+        return s==null;
     }
 
 
