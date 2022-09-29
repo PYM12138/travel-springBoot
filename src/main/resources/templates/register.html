@@ -8,6 +8,8 @@
     <link href="css/bootstrap.min.css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <!--导入jquery-->
     <script src="js/jquery-3.3.1.js" th:href="@{/js/jquery-3.3.1.js}"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
     <style>
         * {
             margin: 0;
@@ -20,19 +22,6 @@
     </style>
 </head>
 <body>
-<!-- loading -->
-<div class="modal fade" id="loading" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">提示</h4>
-            </div>
-            <div class="modal-body">
-                请稍候。。。<span id="result"></span>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!--引入头部-->
 <!--<div id="header"></div>-->
@@ -251,19 +240,29 @@
 
     </div>
 </div>
-<!--引入尾部-->
-<!--<div id="footer"></div>
-&lt;!&ndash;导入布局js，共享header和footer&ndash;&gt;
-<script type="text/javascript" src="js/include.js"></script>-->
+<!-- loading -->
+<div class="modal fade" id="loading" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">提示</h4>
+            </div>
+            <div class="modal-body">
+                请稍候。。。<span id="result"></span>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="common/footer::commonFooter"></div>
+
+
+
 <script>
-
-
-</script>
-<!--<script>
 
 
     //1.校验邮箱
     function validate_email() {
+
         //获取输入的email
         var email = $("#email").val();
         var regxEmail = /^([a-zA-Z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
@@ -281,7 +280,6 @@
     $("#email").on("input", function () {
         validate_email()
     })
-
 
     //2.校验用户名
     function validate_name() {
@@ -368,7 +366,7 @@
 
     //3.提交成功弹出警示框
     $("#submitRegister").click(function () {
-        $("#loading").modal('show');
+
         if (validate_email() && validate_name()) {//
             //都通过的情况
             // alert("提交成功！")
@@ -386,16 +384,18 @@
                         var email = $("#email").val();
                         var username = $("#username").val();
 
+
                         $.ajax({
                             url:"/sendEmailAndUsername",
                             type: "GET",
                             data: {'email': email, 'username': username,'emailCode':""},
                             dataType: "json"
                         })
+
                         var emailCode = prompt("已向你的邮箱地址发送激活码，请输入:");
+
+
                         //激活码之后，验证激活码是否正确
-                        //显示
-                        $('#loading').modal('show');
                         $.ajax({
                                 url: "/emailCodeCheck",
                                 type: "GET",
@@ -403,19 +403,26 @@
                                 dataType: "json",
                                 success: function (result1) {
                                     //显示
-                                    $('#loading').modal('hide');
+                                    // showLoading()
+                                    if (result1.code!==undefined){
+                                        showLoading()
+                                    }
+
                                     //当激活码提交之后，后台验证并返回结果 msg.success,msg.fail
                                     if (result1.code === 100) {
                                         location.href="/register_ok.html";
                                     }else{
                                         alert(result1.extend.activeStatus)
+                                        hideLoading()
                                     }
+
+                                },
+
+                                error:function () {
+                                    hideLoading()
                                 }
 
-                            }
-                        )
-                        // location.reload()
-                        // location.href="/register_ok.html";
+                            })
                     } else {
                         alert("注册失败")
                         if (result.extend.checkCode !== undefined) {
@@ -458,7 +465,20 @@
 
         }
     })
-</script>-->
-<div th:replace="common/footer::commonFooter"></div>
+    function showLoading(){
+        $("#loading").modal({backdrop:"static", keyboard:false});
+    }
+    function hideLoading(){
+        $("#loading").modal('hide');
+    }
+    /* $(function(){
+      showLoading();
+      setTimeout(function(){
+          hideLoading();
+      },3000);
+  })*/
+</script>
+
 </body>
+
 </html>
