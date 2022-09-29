@@ -17,7 +17,7 @@ public class RedisUtil {
 //        String createTimeKey=email+":createTime";
 //        String expireTimeKey=email+":expireTime";
         String statusKey=email+":statusKey";
-        if (Boolean.TRUE.equals(stringRedisTemplate.hasKey(statusKey)) && Objects.equals(stringRedisTemplate.opsForValue().get(statusKey), "1")){
+        if (Boolean.TRUE.equals(stringRedisTemplate.hasKey(statusKey)) && stringRedisTemplate.opsForValue().get(statusKey).equals("1") ){
             System.out.println("已存在激活码！");
             return false;
         }
@@ -26,14 +26,13 @@ public class RedisUtil {
         stringRedisTemplate.opsForValue().set(emailKey, email,3,TimeUnit.MINUTES);
         stringRedisTemplate.opsForValue().set(codeKey, code,3,TimeUnit.MINUTES);
         stringRedisTemplate.opsForValue().set(statusKey, "1",3,TimeUnit.MINUTES);
-
+        System.out.println("保存激活码成功！");
         return true;
 
     }
-
-    public String getKey(String email){//查询并返回code
-        String s = stringRedisTemplate.opsForValue().get(email + ":code");
-        return s;
+    //查询并返回code
+    public String getKey(String email){
+        return stringRedisTemplate.opsForValue().get(email + ":code");
     }
 
 

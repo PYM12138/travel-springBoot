@@ -66,8 +66,9 @@ public class RegisterController {
                 return Msg.fail().add("checkCode", "验证码有误！");
             }
 
-            String gender = user.getSex().equals("M") ? "男" : "女";
-            user.setSex(gender);
+//            String gender = user.getSex().equals("M") ? "男" : "女";
+//            user.setSex(gender);
+//            user.setStatus("N");
 //            userHandleService.addUserForRegister(user);
             System.out.println(user);
             return Msg.success();

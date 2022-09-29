@@ -20,6 +20,19 @@
     </style>
 </head>
 <body>
+<!-- loading -->
+<div class="modal fade" id="loading" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">提示</h4>
+            </div>
+            <div class="modal-body">
+                请稍候。。。<span id="result"></span>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!--引入头部-->
 <!--<div id="header"></div>-->
@@ -229,6 +242,11 @@
                 </p>
             </div>
 
+
+
+
+
+
         </div>
 
     </div>
@@ -238,6 +256,12 @@
 &lt;!&ndash;导入布局js，共享header和footer&ndash;&gt;
 <script type="text/javascript" src="js/include.js"></script>-->
 <script>
+
+
+</script>
+<!--<script>
+
+
     //1.校验邮箱
     function validate_email() {
         //获取输入的email
@@ -341,8 +365,10 @@
 
     }
 
+
     //3.提交成功弹出警示框
     $("#submitRegister").click(function () {
+        $("#loading").modal('show');
         if (validate_email() && validate_name()) {//
             //都通过的情况
             // alert("提交成功！")
@@ -356,15 +382,34 @@
                     if (result.code === 100) {
                         // alert(result.code)
                         alert("注册成功")
-                        var emailCode = prompt("已向你的邮箱地址发送激活码，请输入:");
+                        //激活码之前，获取表格的信息发送email和username
                         var email = $("#email").val();
+                        var username = $("#username").val();
+
                         $.ajax({
-                                url: "/emailCodeCheck" ,
+                            url:"/sendEmailAndUsername",
+                            type: "GET",
+                            data: {'email': email, 'username': username,'emailCode':""},
+                            dataType: "json"
+                        })
+                        var emailCode = prompt("已向你的邮箱地址发送激活码，请输入:");
+                        //激活码之后，验证激活码是否正确
+                        //显示
+                        $('#loading').modal('show');
+                        $.ajax({
+                                url: "/emailCodeCheck",
                                 type: "GET",
-                                data:{'emailCode':emailCode,'email':email},
-                                dataType:"json",
-                                success: function () {
+                                data: {'emailCode': emailCode, 'email': email, 'username': username},
+                                dataType: "json",
+                                success: function (result1) {
+                                    //显示
+                                    $('#loading').modal('hide');
                                     //当激活码提交之后，后台验证并返回结果 msg.success,msg.fail
+                                    if (result1.code === 100) {
+                                        location.href="/register_ok.html";
+                                    }else{
+                                        alert(result1.extend.activeStatus)
+                                    }
                                 }
 
                             }
@@ -413,7 +458,7 @@
 
         }
     })
-</script>
+</script>-->
 <div th:replace="common/footer::commonFooter"></div>
 </body>
 </html>

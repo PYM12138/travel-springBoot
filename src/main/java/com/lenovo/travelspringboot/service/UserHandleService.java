@@ -11,8 +11,11 @@ import java.util.ArrayList;
 public class UserHandleService {
     @Autowired
     UserDaoInterface userDaoInterface;
-
+    //添加用户
     public void addUserForRegister(User user){
+        String gender = user.getSex().equals("M") ? "男" : "女";
+        user.setSex(gender);
+        user.setStatus("N");
         userDaoInterface.addUserSingle(user);
     }
     /**
@@ -22,6 +25,11 @@ public class UserHandleService {
         String s = userDaoInterface.selectUsername(username);
         return s==null;
     }
+    //更新用户状态
+    public void updateStatue(String status,String username,String email){
+        userDaoInterface.updateStatus(status, username, email);
+    }
+
 
 
 }

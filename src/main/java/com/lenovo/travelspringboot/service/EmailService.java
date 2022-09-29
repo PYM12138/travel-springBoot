@@ -1,5 +1,6 @@
 package com.lenovo.travelspringboot.service;
 
+import com.lenovo.travelspringboot.dao.UserDaoInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -14,7 +15,6 @@ import javax.annotation.Resource;
 public class EmailService {
     @Resource
     private JavaMailSenderImpl javaMailSender;
-
     public void sendMessage(String sendEmail,String receiveEmail,String code){
         SimpleMailMessage message = new SimpleMailMessage();
         message.setSubject("旅游网邮件验证");
@@ -23,6 +23,7 @@ public class EmailService {
         message.setTo(receiveEmail); //接收者的邮箱地址
         javaMailSender.send(message);
     }
+
 
 
 
