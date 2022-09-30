@@ -72,6 +72,8 @@ public class RegisterController {
             if (usernameFlag == "" && emailFlag == "") {
                 usernameFlag = user.getUsername();
                 emailFlag = user.getEmail();
+                System.out.println("if："+usernameFlag);
+                System.out.println("if："+emailFlag);
 //            String gender = user.getSex().equals("M") ? "男" : "女";
 //            user.setSex(gender);
 //            user.setStatus("N");
@@ -79,7 +81,11 @@ public class RegisterController {
                 System.out.println(user);
                 return Msg.success().add("success", "账号注册成功！123");
             } else {
-                if (usernameFlag == user.getUsername() && emailFlag == user.getEmail()) {
+                System.out.println("else1："+usernameFlag);
+                System.out.println("else1："+emailFlag);
+                System.out.println(user.getUsername());
+                System.out.println(user.getEmail());
+                if (usernameFlag .equals(user.getUsername())  && emailFlag.equals(user.getEmail())) {
                     return Msg.success().add("userRepeat", "账号已经存在，请去激活！");
                 } else {
 //            String gender = user.getSex().equals("M") ? "男" : "女";
@@ -90,6 +96,8 @@ public class RegisterController {
                     //只要不是重复的username和email那么就可以注册而且更新一下flag状态
                     usernameFlag = user.getUsername();
                     emailFlag = user.getEmail();
+                    System.out.println("else2："+usernameFlag);
+                    System.out.println("else2："+emailFlag);
                     return Msg.success().add("success", "账号注册成功！456");
                 }
 
