@@ -362,6 +362,10 @@
         }
 
     }
+    function emailCodeF() {
+        //通过写一个函数的方式，来恢复prompt()阻塞式运行
+        return prompt("已向你的邮箱地址发送激活码，请输入:");
+    }
 
 
     //3.提交成功弹出警示框
@@ -379,7 +383,12 @@
                 success: function (result) {//通过自定义的状态码来显示对应的信息
                     if (result.code === 100) {
                         // alert(result.code)
-                        alert("注册成功")
+                        if (result.extend.success!==undefined){
+                            alert(result.extend.success)
+                        }
+                        if (result.extend.userRepeat!==undefined){
+                            alert(result.extend.userRepeat+"12311111111111111")
+                        }
                         //激活码之前，获取表格的信息发送email和username
                         var email = $("#email").val();
                         var username = $("#username").val();
@@ -392,8 +401,8 @@
                             dataType: "json"
                         })
 
-                        var emailCode = prompt("已向你的邮箱地址发送激活码，请输入:");
-
+                        var emailCode = emailCodeF();
+                        showLoading()
 
                         //激活码之后，验证激活码是否正确
                         $.ajax({
@@ -403,13 +412,9 @@
                                 dataType: "json",
                                 success: function (result1) {
                                     //显示
-                                    // showLoading()
-                                    if (result1.code!==undefined){
-                                        showLoading()
-                                    }
-
                                     //当激活码提交之后，后台验证并返回结果 msg.success,msg.fail
                                     if (result1.code === 100) {
+                                        hideLoading()
                                         location.href="/register_ok.html";
                                     }else{
                                         alert(result1.extend.activeStatus)

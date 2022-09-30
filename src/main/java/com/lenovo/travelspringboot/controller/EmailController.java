@@ -31,7 +31,12 @@ public class EmailController {
         return email;
     }*/
 
-
+    /*
+    * 1.发email，输入激活码
+    * 2.激活码验证，成功与否
+    *
+    * */
+    String code ="";
     @GetMapping(value = {"/emailCodeCheck","/sendEmailAndUsername"})
     @ResponseBody
     public Msg activeCode(String email,String username,@RequestParam("emailCode") String emailCode){
@@ -44,35 +49,41 @@ public class EmailController {
         * */
 //        System.out.println(email);
 //        System.out.println(username);
+        //emailCode =="" 说明只用发送邮件 emailCode!="" 说明输入有误，提示重新输入3次计划，再次发送邮件
 
-        String code = UuidUtil.getUuid().substring(0, 5);
-
-        Boolean codeResist = redisUtil.preserveCode(email, code);
-        if (codeResist){
-            //第一次发验证码
-            System.out.println("激活码:"+code);
-            return getMsg(emailCode, email, username, code);
+        if (emailCode.equals("")){
+            code = UuidUtil.getUuid().substring(0, 5);
+            Boolean codeResist = redisUtil.preserveCode(email, code);
+            if (codeResist){
+                //第一次发
+                System.out.println("激活码:"+code);
+                emailService.sendMessage("1602315416@qq.com", email, code);
+            }
         }else{
-            //如果存在就发存在的验证码
-            String key = redisUtil.getKey(email);
-            System.out.println("激活码:"+key);
-            return getMsg(emailCode, email, username, key);
+            System.out.println("else情况:"+code);
+            boolean equals = emailCode.equals(code);
+            if (equals){
+//            userHandleService.updateStatue("Y", username, email);
+                return Msg.success();
+            }else{
+                return Msg.fail().add("activeStatus", "激活失败！");
+            }
 
 
         }
-
+        return Msg.fail();
     }
 
-    private Msg getMsg(String emailCode, String email, String username, String key) {
-//        emailService.sendMessage("1602315416@qq.com", email, key);
-        boolean equals = emailCode.equals(key);
+/*    private Msg getMsg(String emailCode, String email, String username, String code) {
+        emailService.sendMessage("1602315416@qq.com", email, code);
+        boolean equals = emailCode.equals(code);
         if (equals){
 //            userHandleService.updateStatue("Y", username, email);
             return Msg.success();
         }else{
             return Msg.fail().add("activeStatus", "激活失败！");
         }
-    }
+    }*/
 
 
 }
