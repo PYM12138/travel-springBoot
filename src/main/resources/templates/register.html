@@ -227,7 +227,7 @@
             <div class="rg_form_right col-sm-offset-9">
                 <p>
                     已有账号？
-                    <a href="#">立即登录</a>
+                    <a href="login.html">立即登录</a>
                 </p>
             </div>
 
@@ -387,7 +387,7 @@
                             alert(result.extend.success)
                         }
                         if (result.extend.userRepeat!==undefined){
-                            alert(result.extend.userRepeat+"12311111111111111")
+                            alert(result.extend.userRepeat)
                         }
                         //激活码之前，获取表格的信息发送email和username
                         var email = $("#email").val();
@@ -397,13 +397,17 @@
                         $.ajax({
                             url:"/sendEmailAndUsername",
                             type: "GET",
-                            data: {'email': email, 'username': username,'emailCode':""},
+                            data: {'email': email, 'username': username,'emailCode':"sendEmail"},
                             dataType: "json"
                         })
 
                         var emailCode = emailCodeF();
-                        alert("如果我点了取消是什么值？"+emailCode)
-                        showLoading()
+                        // alert("如果我点了取消是什么值？"+emailCode)
+                        if (emailCode!==null){
+                            showLoading()
+                        }else{
+                            return;
+                        }
 
                         //激活码之后，验证激活码是否正确
                         $.ajax({
@@ -412,19 +416,25 @@
                                 data: {'emailCode': emailCode, 'email': email, 'username': username},
                                 dataType: "json",
                                 success: function (result1) {
-                                    //显示
                                     //当激活码提交之后，后台验证并返回结果 msg.success,msg.fail
                                     if (result1.code === 100) {
                                         hideLoading()
-                                        location.href="/register_ok.html";
+                                        //替换掉href跳转，replace不会有历史记录，也就不能返回上一步了
+                                        location.replace("/register_ok.html")
+
                                     }else{
-                                        alert(result1.extend.activeStatus)
+                                        if (result1.extend.activeStatus!==undefined){
+                                            alert(result1.extend.activeStatus)
+                                        }
+                                        if (result1.extend.activeStatus1!==undefined){
+                                            alert(result1.extend.activeStatus1)
+                                            location.reload();
+                                        }
                                         hideLoading()
                                     }
-
                                 },
-
                                 error:function () {
+
                                     hideLoading()
                                 }
 

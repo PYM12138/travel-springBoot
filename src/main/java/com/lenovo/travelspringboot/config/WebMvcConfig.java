@@ -20,6 +20,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
         registry.addViewController("/index.html").setViewName("/index");
         registry.addViewController("/register.html").setViewName("/register");
         registry.addViewController("/register_ok.html").setViewName("/register_ok");
+        registry.addViewController("/login.html").setViewName("/login");
     }
 
    @Override

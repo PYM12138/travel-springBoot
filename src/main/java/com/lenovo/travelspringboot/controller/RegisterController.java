@@ -63,29 +63,22 @@ public class RegisterController {
             }
             return Msg.fail().add("errorField", map);
         } else {
-
             if (!checkCodeFlag) {
 //                    System.out.println("checkCode执行");
                 return Msg.fail().add("checkCode", "验证码有误！");
             }
             //当前的和第二次的对比
-            if (usernameFlag == "" && emailFlag == "") {
+            if (usernameFlag.equals("")  && emailFlag.equals("")) {
                 usernameFlag = user.getUsername();
                 emailFlag = user.getEmail();
-                System.out.println("if："+usernameFlag);
-                System.out.println("if："+emailFlag);
 //            String gender = user.getSex().equals("M") ? "男" : "女";
 //            user.setSex(gender);
 //            user.setStatus("N");
 //            userHandleService.addUserForRegister(user);
                 System.out.println(user);
-                return Msg.success().add("success", "账号注册成功！123");
+                return Msg.success().add("success", "账号注册成功！");
             } else {
-                System.out.println("else1："+usernameFlag);
-                System.out.println("else1："+emailFlag);
-                System.out.println(user.getUsername());
-                System.out.println(user.getEmail());
-                if (usernameFlag .equals(user.getUsername())  && emailFlag.equals(user.getEmail())) {
+                if (usernameFlag.equals(user.getUsername())  && emailFlag.equals(user.getEmail())) {
                     return Msg.success().add("userRepeat", "账号已经存在，请去激活！");
                 } else {
 //            String gender = user.getSex().equals("M") ? "男" : "女";
@@ -96,9 +89,7 @@ public class RegisterController {
                     //只要不是重复的username和email那么就可以注册而且更新一下flag状态
                     usernameFlag = user.getUsername();
                     emailFlag = user.getEmail();
-                    System.out.println("else2："+usernameFlag);
-                    System.out.println("else2："+emailFlag);
-                    return Msg.success().add("success", "账号注册成功！456");
+                    return Msg.success().add("success", "账号注册成功！");
                 }
 
             }

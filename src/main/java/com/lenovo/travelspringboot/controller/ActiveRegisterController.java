@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class EmailController {
+public class ActiveRegisterController {
     @Autowired
     RedisUtil redisUtil;
     @Autowired
@@ -37,6 +37,7 @@ public class EmailController {
     *
     * */
     String code ="";
+    Integer i=0;
     @GetMapping(value = {"/emailCodeCheck","/sendEmailAndUsername"})
     @ResponseBody
     public Msg activeCode(String email,String username,@RequestParam("emailCode") String emailCode){
@@ -51,7 +52,7 @@ public class EmailController {
 //        System.out.println(username);
         //emailCode =="" 说明只用发送邮件 emailCode!="" 说明输入有误，提示重新输入3次计划，再次发送邮件
 
-        if (emailCode.equals("")){
+        if (emailCode.equals("sendEmail")){
             code = UuidUtil.getUuid().substring(0, 5);
             Boolean codeResist = redisUtil.preserveCode(email, code);
             if (codeResist){
@@ -60,13 +61,20 @@ public class EmailController {
                 emailService.sendMessage("1602315416@qq.com", email, code);
             }
         }else{
-            System.out.println("else情况:"+code);
+
             boolean equals = emailCode.equals(code);
             if (equals){
 //            userHandleService.updateStatue("Y", username, email);
                 return Msg.success();
             }else{
-                return Msg.fail().add("activeStatus", "激活失败！");
+                if (i<2){
+                    i++;
+                    return Msg.fail().add("activeStatus", "激活失败！"+"你还有"+(3-i)+"次机会！");
+                }else{
+                    return Msg.fail().add("activeStatus1","激活失败，请重新注册！");
+                }
+
+
             }
 
 
