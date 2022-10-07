@@ -11,6 +11,16 @@ public class RouteImg implements Serializable {
     private String bigPic;//详情商品大图
     private String smallPic;//详情商品小图
 
+    private Route route;
+
+    public Route getRoute() {
+        return route;
+    }
+
+    public void setRoute(Route route) {
+        this.route = route;
+    }
+
     /**
      * 无参构造方法
      */
@@ -61,5 +71,15 @@ public class RouteImg implements Serializable {
 
     public void setSmallPic(String smallPic) {
         this.smallPic = smallPic;
+    }
+
+    @Override
+    public String toString() {
+        return "RouteImg{" +
+                "rgid=" + rgid +
+                ", rid=" + rid +
+                ", bigPic='" + bigPic + '\'' +
+                ", smallPic='" + smallPic + '\'' +
+                '}';
     }
 }

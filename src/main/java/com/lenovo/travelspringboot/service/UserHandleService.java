@@ -30,6 +30,16 @@ public class UserHandleService {
         userDaoInterface.updateStatus(status, username, email);
     }
 
+    /**
+     * @return true =user有值 表示登录成功  false=user=null 表示登录失败
+     * */
+    public User loginUser(String username,String password){
+
+        return userDaoInterface.selectUserSingle(username, password);
+
+    }
+
+
 
 
 }

@@ -8,12 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +25,7 @@ import java.util.Map;
  * @author P._Ming
  */
 
-@Controller
+@RestController
 public class RegisterController {
     @Autowired
     UserHandleService userHandleService;
@@ -40,14 +35,13 @@ public class RegisterController {
 
 
     @PostMapping("/addUser")
-    @ResponseBody
     public Msg addUser(@Valid User user, BindingResult bindingResult, String check) {
         //BindingResult 这个必须要放在参数第二位
         System.out.println("check:" + check);
         String flagForCheck = CheckCodeServlet.flagForCheck;
         boolean checkCodeFlag = check.equalsIgnoreCase(flagForCheck);
         if (!userHandleService.selectUsername(user.getUsername())) {
-            System.out.println("方法执行");
+//            System.out.println("方法执行");
             return Msg.fail().add("usern", "用户名存在！");
         }
 

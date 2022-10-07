@@ -1,20 +1,21 @@
 <!-- 头部 start -->
     <header id="header" th:fragment="commonHeader" xmlns:th=http://www.thymeleaf.org >
+        <!--导入jquery-->
+        <script src="js/jquery-3.3.1.js" th:href="@{/js/jquery-3.3.1.js}"></script>
         <div class="top_banner">
             <img src="images/top_banner.jpg" th:src="@{/images/top_banner.jpg}"  alt="">
         </div>
         <div class="shortcut">
             <!-- 未登录状态  -->
-            <div class="login_out">
+            <div class="login_out" th:if="not ${session.user}">
                 <a href="../login.html">登录</a>
                 <a th:href="@{/register.html}">注册</a>
             </div>
             <!-- 登录状态  -->
-            <div class="login">
-            	
-                <span>欢迎回来，admin</span>
+            <div class="login" th:if="${session.user}">
+                <span th:text="'欢迎回来,'+${session.user.username}" >欢迎回来，admin</span>
                 <a href="../myfavorite.html" class="collection">我的收藏</a>
-                <a href="javascript:;">退出</a>
+                <a th:href="@{/exit}">退出</a>
             </div>
         </div>
         <div class="header_wrap">
@@ -23,8 +24,22 @@
                     <a href="/"><img src="images/logo.jpg"  th:src="@{/images/logo.jpg}" alt=""></a>
                 </div>
                 <div class="search">
-                    <input name="" type="text" placeholder="请输入路线名称" class="search_input" autocomplete="off">
-                    <a href="javascript:;" class="search-button">搜索</a>
+                    <form th:action="@{/search}">
+                        <input id="searchName" name="searchContent" type="text" placeholder="请输入路线名称" class="search_input" autocomplete="off">
+
+                        <button class="search-button" id="button_search">搜索</button>
+                    </form>
+                    <script>
+                        $("#button_search").click(function (){
+                            var searchName = $("#searchName").val();
+                            var s = searchName.trim();
+                            if (s===""){
+                                alert("路线不能为空！")
+                                return false;
+                            }
+                        })
+                    </script>
+
                 </div>
                 <div class="hottel">
                     <div class="hot_pic">

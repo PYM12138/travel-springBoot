@@ -2,6 +2,7 @@ package com.lenovo.travelspringboot;
 
 import com.lenovo.travelspringboot.dao.UserDaoInterface;
 import com.lenovo.travelspringboot.domain.User;
+import com.lenovo.travelspringboot.service.UserHandleService;
 import com.lenovo.travelspringboot.util.RedisUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ class TravelSpringBootApplicationTests {
     private JavaMailSenderImpl javaMailSender;
     @Autowired
     private RedisUtil redisUtil;
+    @Autowired
+    private UserHandleService userHandleService;
 
     @Test
     void contextLoads() {
@@ -24,6 +27,8 @@ class TravelSpringBootApplicationTests {
         userDaoInterface.addUserSingle(user);*/
 //        String user = userDaoInterface.selectUsername("123");
 //        redisUtil.preserveCode();
+       userHandleService.loginUser("1602315416", "fj1602315416");
+
 
     }
     @Test

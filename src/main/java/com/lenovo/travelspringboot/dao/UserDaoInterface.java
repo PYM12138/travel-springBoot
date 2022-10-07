@@ -16,6 +16,12 @@ public interface UserDaoInterface {
     @Select("select username from tab_user where username=#{username}")
     String selectUsername(String username);
 
+    //更新用户状态
     @Update("update tab_user set status=#{status} where username=#{username} and email=#{email}")
     void updateStatus(String status,String username,String email);
+
+    //查询用户，用户名+密码的方式
+    @Select("select * from tab_user where username=#{username} and password=#{password}")
+    User selectUserSingle(String username,String password);
+
 }

@@ -17,4 +17,10 @@ class UserDaoInterfaceTest {
         System.out.println(s);
     }
 
+    @Test
+    void testUserLogin(){
+        User user = userDaoInterface.selectUserSingle("1602315416", "fj1602315416");
+        System.out.println(user);
+    }
+
 }
