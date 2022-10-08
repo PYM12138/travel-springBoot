@@ -19,14 +19,12 @@ public class RouteHandleService {
     RouteDaoInterface routeDaoInterface;
     @Autowired
     RouteImgDaoInterface routeImgDaoInterface;
+    /**
+     * @describe : 搜索模糊查询
+     * */
 
     public List<Route> queryRoute(String key){
-
         List<Route> routes = routeDaoInterface.selectRouteByLike("%" + key + "%");
-//        for (Route route : routes) {
-//            System.out.println(route);
-//        }
-
         return routes;
     }
 

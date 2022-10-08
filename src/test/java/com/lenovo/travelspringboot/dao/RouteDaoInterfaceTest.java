@@ -29,4 +29,12 @@ class RouteDaoInterfaceTest {
         Route route = routeDaoInterface.selectRouteByRid(1);
         System.out.println(route);
     }
+
+    @Test
+    void selectRouteByCount() {
+        List<Route> routes = routeDaoInterface.selectRouteByCount();
+        for (Route route : routes) {
+            System.out.println(route);
+        }
+    }
 }

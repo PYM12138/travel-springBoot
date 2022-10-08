@@ -29,6 +29,9 @@ public interface RouteDaoInterface {
         })
         Route selectRouteByRid(Integer rid);
 
+        @Select("select * from tab_route where count!=0 order by count desc")
+        List<Route> selectRouteByCount();
+
 
 
 }
