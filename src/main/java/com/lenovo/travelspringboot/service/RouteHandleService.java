@@ -7,11 +7,9 @@ import com.lenovo.travelspringboot.domain.RouteImg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collection;
+
 import java.util.List;
-import java.util.function.Function;
-import java.util.stream.Collectors;
+
 
 @Service
 public class RouteHandleService {
@@ -20,17 +18,25 @@ public class RouteHandleService {
     @Autowired
     RouteImgDaoInterface routeImgDaoInterface;
     /**
-     * @describe : 搜索模糊查询
+     * describe : 搜索模糊查询
      * */
 
     public List<Route> queryRoute(String key){
         List<Route> routes = routeDaoInterface.selectRouteByLike("%" + key + "%");
         return routes;
     }
-
+    /**
+     * describe:用rid查找数据，包含大小图片信息
+     * */
     public Route findRouteByRidCompriseImg(Integer rid){
-
         return routeDaoInterface.selectRouteByRid(rid);
+    }
+    /**
+     * 查找收藏数据
+     * */
+    public List<Route> CountEqualFavorite(){
+
+        return routeDaoInterface.selectRouteByCount();
     }
 
 }
