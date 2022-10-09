@@ -42,7 +42,7 @@ public class FavoriteController {
 
 
     @GetMapping("/myfavorite")
-    public String myFavorite(HttpSession session) {
+    public String myFavorite(HttpSession session,Model model) {
         /*
          * 防止绕过登录直接访问我的收藏
          *   1.检测session域的数据，不存在则返回首页，存在就去我的收藏
@@ -51,11 +51,20 @@ public class FavoriteController {
          *          (点击收藏，在count要加一)
          *   2.在我的收藏用这两个数据去查询你要的收藏，以收藏数量排行一下
          *           (分页数据也需要)
-         *
          * */
 
         User user = (User) session.getAttribute("user");
-        System.out.println(user + "11111111111111111");
+        if (user==null){
+            model.addAttribute("loginMyFav", "未登录没有权限访问我的收藏");
+
+        }else{
+            //收藏页面还要关系到分页，导航条
+            //TODO:收藏页面，分页，导航条
+            //当前的uid去找rid，rid从route里面找
+            List<Route> routeByUid = favoriteHandleService.findRouteByUid(user.getUid());
+            model.addAttribute("routeMyList", routeByUid);
+
+        }
         return "myfavorite";
 
     }
@@ -84,15 +93,18 @@ public class FavoriteController {
         if (user == null) {//如果session域中没有用户登录
 
             //数据放到隐藏域，然后取出来
-            model.addAttribute("loginTip", "请先登录！");
+//            model.addAttribute("loginTip2", "请先登录！");
+//            httpSession.setAttribute("loginTip3", "请先登录！");
 
         } else {
+//            httpSession.removeAttribute("loginTip3");
             if (favorite == 1) {
                 //还要给当前用户添加进去
                 favoriteHandleService.insertFavoriteForUser(user.getUid(), Integer.valueOf(uri2));
-                //更新收藏状态，刷新当前页面JS实现
+                //更新收藏状态
                 routeHandleService.updateFavoriteCount(Integer.valueOf(uri2), true);
             } else {
+                //取消收藏
                 favoriteHandleService.deleteFavoriteForUser(user.getUid(), Integer.valueOf(uri2));
                 routeHandleService.updateFavoriteCount(Integer.valueOf(uri2), false);
             }

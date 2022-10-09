@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -35,6 +36,7 @@ public class SearchController {
             return "redirect:/";
         }else{
 
+
             //判断searchContent是为空，还是重复，还是初始状态,记录下来就不用每次都从前端取值查询
             if (flag.equals("")){
                 flag=searchContent;
@@ -42,9 +44,18 @@ public class SearchController {
             if (!"".equals(searchContent)&&!flag.equals(searchContent)&&!searchContent.equals("路线")){
                 flag=searchContent;
             }
+
+
+
             PageHelper.startPage(pn, 5);
             System.out.println("flag2"+flag);
-            List<Route> routeByLike = routeHandleService.queryRoute(flag);
+            List<Route> routeByLike = null;
+            if (flag.equals("country")){//国内游路线专属查询
+                routeByLike = routeHandleService.queryRoute("%%");
+            }else{
+                routeByLike = routeHandleService.queryRoute(flag);
+            }
+
             PageInfo<Route> routePageInfo = new PageInfo<>(routeByLike, 5);
 //        model.addAttribute("routeList", routeByLike);
             model.addAttribute("pageInfo", routePageInfo);
@@ -54,6 +65,8 @@ public class SearchController {
 
 
     }
+
+
 
 
 }

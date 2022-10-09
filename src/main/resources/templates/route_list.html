@@ -34,7 +34,7 @@
                     <ul>
                         <li th:each="route:${pageInfo.list}"> <!-- thymeleaf取list中的list数据,list2:list1.list名=第二层list
                                                             <img src="images/04-search_03.jpg" style="height: 180px" th:src="@{${routeImg.smallPic}}" th:each="routeImg:${route.routeImgList}" alt="">-->
-                            <div class="img"><img src="images/04-search_03.jpg" style="height: 180px" th:src="@{${route.rimage}}"  alt=""></div>
+                            <div class="img"><img src="images/04-search_03.jpg" style="height: 180px" th:src="@{/{img}(img=${route.rimage})}"  alt=""></div>
                             <div class="text1">
                                 <p th:text="${route.rname}">【减100元 含除夕/春节出发】广州增城三英温泉度假酒店/自由行套票</p>
                                 <br/>
@@ -164,7 +164,7 @@
                             </div>
                         </li>-->
                     </ul>
-<!--                    导航条-->
+                    <!--导航条-->
                     <div th:replace="common/navigation::commonNav"></div>
 
                 </div>
