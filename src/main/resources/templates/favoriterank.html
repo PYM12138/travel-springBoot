@@ -104,7 +104,7 @@
                 </ul>
             </div>
             <nav >
-                <div th:replace="common/navigation::commonNav"></div>
+                <div th:replace="common/navigation::commonNav">在要被替换的数据里写东西没用，因为会被替换掉！</div>
             </nav>
 <!--
             <nav id="nav1">
@@ -133,7 +133,7 @@
 
         </div>
     	
-         <!--导入底部-->
+    <!--导入底部-->
     <div th:replace="common/footer::commonFooter"></div>
     <script th:inline="javascript">
         //thymeleaf搭配JS,成功更改导航条跳转链接，这一刻应该记录史册！我太牛了哈哈哈哈
@@ -147,6 +147,12 @@
                 $(this).attr('href','/favoriteList?pn='+text)
             })
         }
+        //给前二的排行榜颜色变一个色子
+        function liSpanClass() {
+            $(".list li:first").children("span").addClass('one')
+            $(".list li:eq(1)").children("span").addClass('two')
+        }
+
     </script>
 <!--   		 <div id="footer"></div>-->
     <!--导入布局js，共享header和footer-->
@@ -156,6 +162,8 @@
     $(function () {
         //加载初始化导航条之后，在根据页面的Thymeleaf+JS来改成自己想要的链接地址！
         same()
+        liSpanClass()
+
     })
 
 

@@ -91,9 +91,9 @@
             <div class="pros_price">
                 <p class="price"><strong>¥[[${routeWithImg.price}]]</strong><span>起</span></p>
                 <p class="collect">
-                    <a class="btn"><i class="glyphicon glyphicon-heart-empty"></i>点击收藏</a>
+                    <a class="btn" th:href="@{/favoriteStatue(favorite=true)}" ><i class="glyphicon glyphicon-heart-empty"></i>点击收藏</a>
 
-                    <a class="btn already" disabled="disabled"><i class="glyphicon glyphicon-heart-empty"></i>点击收藏</a>
+                    <a class="btn already" th:href="@{/favoriteStatue(favorite=false)}" ><i class="glyphicon glyphicon-heart-empty"></i>取消收藏</a>
                     <span>已收藏[[${routeWithImg.count}]]次</span>
                 </p>
             </div>
@@ -138,12 +138,42 @@
 <!--导入布局js，共享header和footer-->
 <!--    <script type="text/javascript" src="js/include.js"></script>-->
 <div th:replace="common/footer::commonFooter"></div>
+<script th:inline="javascript">
+    function favoriteGet() {
+        //收藏与取消
+        $.ajax({
+            url:"/favoriteOne",
+            type:"GET",
+            data:{"rid":[[${routeWithImg.rid}]]},
+            success:function (result) {
+                if (result.code===100){
+                    alert("成功")
+                    //成功则禁用收藏，开放取消收藏 disabled="disabled"
+                    $(".btn").attr({"disabled":"disabled","href":"javascript:;"})
+                    $(".btn.already").attr("disabled",false)
+                }else{
+                    alert("失败")
+                    $(".btn").attr("disabled",false)
+                    $(".btn.already").attr({"disabled":"disabled","href":"javascript:;"})
+                }
+            }
+        })
+    }
+
+
+</script>
 <script>
     $(document).ready(function () {
         $('dd').children().eq(1).addClass('cur_img')
         //dd的孩子-a标签（不能是.down_img）的索引从4开始往后的
         $('dd').children("a:not(.down_img):gt(4)").css("display", "none")
         // setInterval("a()", 3000);
+        favoriteGet()
+
+
+
+
+
 
 
         //焦点图效果

@@ -32,6 +32,9 @@ public interface RouteDaoInterface {
         @Select("select * from tab_route where count!=0 order by count desc")
         List<Route> selectRouteByCount();
 
+        @Update("update tab_route set count=#{count} where rid=#{rid}")
+        void updateCount(Integer count,Integer rid);
+
 
 
 }
