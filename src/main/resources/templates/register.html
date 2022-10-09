@@ -6,10 +6,10 @@
     <link rel="stylesheet" type="text/css" href="css/common.css" th:href="@{/css/common.css}">
     <link rel="stylesheet" href="css/register.css" th:href="@{/css/register.css}">
     <link href="css/bootstrap.min.css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+
     <!--导入jquery-->
     <script src="js/jquery-3.3.1.js" th:href="@{/js/jquery-3.3.1.js}"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+
     <style>
         * {
             margin: 0;
@@ -239,23 +239,25 @@
         </div>
 
     </div>
-</div>
-<!-- loading -->
-<div class="modal fade" id="loading" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">提示</h4>
-            </div>
-            <div class="modal-body">
-                请稍候。。。<span id="result"></span>
+    <!-- loading -->
+    <div class="modal fade" id="loading1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">提示</h4>
+                </div>
+                <div class="modal-body">
+                    请稍候。。。<span id="result"></span>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
 <div th:replace="common/footer::commonFooter"></div>
 
-
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
 
 <script>
 
@@ -402,10 +404,12 @@
                         })
 
                         var emailCode = emailCodeF();
-                        // alert("如果我点了取消是什么值？"+emailCode)
+
                         if (emailCode!==null){
+
                             showLoading()
                         }else{
+
                             return;
                         }
 
@@ -418,6 +422,7 @@
                                 success: function (result1) {
                                     //当激活码提交之后，后台验证并返回结果 msg.success,msg.fail
                                     if (result1.code === 100) {
+                                        alert("123")
                                         hideLoading()
                                         //替换掉href跳转，replace不会有历史记录，也就不能返回上一步了
                                         location.replace("/register_ok.html")
@@ -482,10 +487,10 @@
         }
     })
     function showLoading(){
-        $("#loading").modal({backdrop:"static", keyboard:false});
+        $('#loading1').modal({backdrop:"static", keyboard:false}).modal('show');
     }
     function hideLoading(){
-        $("#loading").modal('hide');
+        $("#loading1").modal('hide');
     }
     /* $(function(){
       showLoading();
@@ -493,6 +498,7 @@
           hideLoading();
       },3000);
   })*/
+
 </script>
 
 </body>

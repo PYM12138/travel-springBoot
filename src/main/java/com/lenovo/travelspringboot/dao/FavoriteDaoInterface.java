@@ -1,5 +1,6 @@
 package com.lenovo.travelspringboot.dao;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -18,6 +19,9 @@ public interface FavoriteDaoInterface {
     @Insert("insert into tab_favorite(rid,date,uid) values(#{rid},#{date},#{uid})")
 //    @SelectKey(statement = "SELECT  LAST_INSERT_ID()", keyProperty = "id", resultType = Long.class, before = false)
     void insertFavoriteOne(Integer rid, Date date, Integer uid);
+
+    @Delete("delete from tab_favorite where rid=#{rid} and uid=#{uid}")
+    void deleteFavoriteWithRidAndUid(Integer uid,Integer rid);
 
 
 

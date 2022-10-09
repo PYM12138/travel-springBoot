@@ -14,7 +14,7 @@ class RouteDaoInterfaceTest {
     RouteDaoInterface routeDaoInterface;
     @Test
     void selectRouteByLike() {
-        List<Route> guizhou = routeDaoInterface.selectRouteByLike("%贵州%");
+        List<Route> guizhou = routeDaoInterface.selectRouteByLike("%%");
         for (Route route : guizhou) {
             System.out.println(route);
         }
@@ -36,5 +36,12 @@ class RouteDaoInterfaceTest {
         for (Route route : routes) {
             System.out.println(route);
         }
+    }
+    @Test
+    void testCount(){
+        Route route = routeDaoInterface.selectRouteByRid(1);
+        routeDaoInterface.updateCount(route.getCount()+1,route.getRid());
+
+//
     }
 }

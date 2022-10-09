@@ -91,18 +91,22 @@
             <div class="pros_price">
                 <p class="price"><strong>¥[[${routeWithImg.price}]]</strong><span>起</span></p>
                 <p class="collect">
-                    <a class="btn" th:href="@{/favoriteStatue(favorite=true)}" ><i class="glyphicon glyphicon-heart-empty"></i>点击收藏</a>
+                    <a class="btn" id="a1" th:href="@{/favoriteStatue/1{uri}(uri=${#httpServletRequest.requestURI})}" ><i class="glyphicon glyphicon-heart-empty"></i>点击收藏</a>
 
-                    <a class="btn already" th:href="@{/favoriteStatue(favorite=false)}" ><i class="glyphicon glyphicon-heart-empty"></i>取消收藏</a>
+                    <a class="btn already" id="a2" th:href="@{/favoriteStatue/0{uri}(uri=${#httpServletRequest.requestURI})}" ><i class="glyphicon glyphicon-heart-empty"></i>取消收藏</a>
                     <span>已收藏[[${routeWithImg.count}]]次</span>
                 </p>
             </div>
         </div>
     </div>
     <div class="you_need_konw">
+
+
+
         <span>旅游须知</span>
         <div class="notice">
             <p>1、旅行社已投保旅行社责任险。建议游客购买旅游意外保险 <br>
+
 
             <p>
                 2、旅游者参加打猎、潜水、海边游泳、漂流、滑水、滑雪、滑草、蹦极、跳伞、滑翔、乘热气球、骑马、赛车、攀岩、水疗、水上飞机等属于高风险性游乐项目的，敬请旅游者务必在参加前充分了解项目的安全须知并确保身体状况能适应此类活动；如旅游者不具备较好的身体条件及技能，可能会造成身体伤害。</p>
@@ -140,6 +144,7 @@
 <div th:replace="common/footer::commonFooter"></div>
 <script th:inline="javascript">
     function favoriteGet() {
+
         //收藏与取消
         $.ajax({
             url:"/favoriteOne",
@@ -147,14 +152,13 @@
             data:{"rid":[[${routeWithImg.rid}]]},
             success:function (result) {
                 if (result.code===100){
-                    alert("成功")
+                    alert("已收藏")
                     //成功则禁用收藏，开放取消收藏 disabled="disabled"
-                    $(".btn").attr({"disabled":"disabled","href":"javascript:;"})
-                    $(".btn.already").attr("disabled",false)
+                    $("#a1").attr({"disabled":"disabled","href":"javascript:;"})
+                    // $(".already").attr("disabled",false)
                 }else{
-                    alert("失败")
-                    $(".btn").attr("disabled",false)
-                    $(".btn.already").attr({"disabled":"disabled","href":"javascript:;"})
+                    alert("未收藏")
+                    $("#a2").attr({"disabled":"disabled","href":"javascript:;"})
                 }
             }
         })
@@ -169,6 +173,7 @@
         $('dd').children("a:not(.down_img):gt(4)").css("display", "none")
         // setInterval("a()", 3000);
         favoriteGet()
+        // location.reload()
 
 
 

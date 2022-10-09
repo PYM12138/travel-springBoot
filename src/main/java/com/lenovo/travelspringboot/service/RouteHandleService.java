@@ -39,4 +39,20 @@ public class RouteHandleService {
         return routeDaoInterface.selectRouteByCount();
     }
 
+    /**
+     *
+     * 更改count的数量
+     *
+     * */
+    public void updateFavoriteCount(Integer rid,Boolean flag){
+        Route route = routeDaoInterface.selectRouteByRid(rid);
+        if (flag){
+            routeDaoInterface.updateCount(route.getCount()+1, route.getRid());
+        }else{
+            routeDaoInterface.updateCount(route.getCount()-1, route.getRid());
+        }
+
+
+    }
+
 }
