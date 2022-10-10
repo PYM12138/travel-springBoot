@@ -27,7 +27,12 @@ class TravelSpringBootApplicationTests {
         userDaoInterface.addUserSingle(user);*/
 //        String user = userDaoInterface.selectUsername("123");
 //        redisUtil.preserveCode();
-       userHandleService.loginUser("1602315416", "fj1602315416");
+//       userHandleService.loginUser("1602315416", "fj1602315416");
+
+        for (int i = 0; i < 12; i++) {
+            int num = (int)(Math.random()*500);
+            System.out.println(num);
+        }
 
 
     }

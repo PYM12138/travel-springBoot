@@ -31,7 +31,6 @@ public class FavoriteController {
 
     @GetMapping("/favoriteList")
     public String favorite(@RequestParam(value = "pn", defaultValue = "1") Integer pn, Model model) {
-
         PageHelper.startPage(pn, 5);
         List<Route> routes = routeHandleService.CountEqualFavorite();
         PageInfo<Route> routePageInfo = new PageInfo<>(routes, 5);
@@ -56,7 +55,7 @@ public class FavoriteController {
         User user = (User) session.getAttribute("user");
         if (user==null){
             model.addAttribute("loginMyFav", "未登录没有权限访问我的收藏");
-
+//            return "/";
         }else{
             //收藏页面还要关系到分页，导航条
             //TODO:收藏页面，分页，导航条
@@ -87,14 +86,8 @@ public class FavoriteController {
 
     @GetMapping("/favoriteStatue/{favorite}/{uri1}/{uri2}")
     public String favoriteStatue(HttpSession httpSession, @PathVariable("favorite") Integer favorite, @PathVariable("uri1") String uri1, @PathVariable("uri2") String uri2, Model model) {
-
-
         User user = (User) httpSession.getAttribute("user");
         if (user == null) {//如果session域中没有用户登录
-
-            //数据放到隐藏域，然后取出来
-//            model.addAttribute("loginTip2", "请先登录！");
-//            httpSession.setAttribute("loginTip3", "请先登录！");
 
         } else {
 //            httpSession.removeAttribute("loginTip3");
@@ -108,7 +101,7 @@ public class FavoriteController {
                 favoriteHandleService.deleteFavoriteForUser(user.getUid(), Integer.valueOf(uri2));
                 routeHandleService.updateFavoriteCount(Integer.valueOf(uri2), false);
             }
-
+            //重定向到当前页面中
             return "redirect:/" + uri1 + "/" + uri2;
 
         }

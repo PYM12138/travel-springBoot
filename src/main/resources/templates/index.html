@@ -67,8 +67,12 @@ xmlns:shiro=http://www.pollix.at/thymeleaf/shiro>
                 </div>
                 <!-- Nav tabs -->
                 <ul class="jx_tabs" role="tablist">
+                    <li role="presentation" class="">
+                                                <span></span>
+                        <a href="#popularity" aria-controls="popularity" role="tab" data-toggle="tab"></a>
+                    </li>
                     <li role="presentation" class="active">
-                        <span></span>
+<!--                        <span></span>-->
                         <a href="#popularity" aria-controls="popularity" role="tab" data-toggle="tab">人气旅游</a>
                     </li>
                     <li role="presentation">
@@ -222,16 +226,16 @@ xmlns:shiro=http://www.pollix.at/thymeleaf/shiro>
                 </div>
                 <div class="guone_r">
                     <div class="row">
-                        <div class="col-md-4">
-                            <a href="route_detail.html">
-								<img src="images/jiangxuan_4.jpg" th:src="@{/images/jiangxuan_4.jpg}" alt="">
+                        <div class="col-md-4" th:each="route:${routes}" th:if="${routeStat.count} <= 6">
+                            <a href="route_detail.html" th:href="@{/detail/{rid}(rid=${route.rid})}">
+								<img src="images/jiangxuan_4.jpg" style="height: 140px" th:src="@{/{img}(img=${route.rimage})}" alt="">
 								<div class="has_border">
-									<h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-									<div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>									
+									<h3 th:text="${route.rname}">上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
+									<div class="price">网付价<em>￥</em><strong>[[${route.price}]]</strong><em>起</em></div>
 								</div>
 							</a>
                         </div>
-                        <div class="col-md-4">
+                        <!--<div class="col-md-4">
                             <a href="route_detail.html">
 								<img src="images/jiangxuan_4.jpg" th:src="@{/images/jiangxuan_4.jpg}" alt="">
 								<div class="has_border">
@@ -275,7 +279,7 @@ xmlns:shiro=http://www.pollix.at/thymeleaf/shiro>
 									<div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>									
 								</div>
 							</a>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>
@@ -286,7 +290,7 @@ xmlns:shiro=http://www.pollix.at/thymeleaf/shiro>
             <div class="jx_top">
                 <div class="jx_tit">
                     <img src="images/icon_7.jpg" th:src="@{/images/icon_7.jpg}" alt="">
-                    <span>境外游</span>
+                    <span>国内游</span>
                 </div>
             </div>
             <div class="heima_gn">
@@ -295,16 +299,16 @@ xmlns:shiro=http://www.pollix.at/thymeleaf/shiro>
                 </div>
                 <div class="guone_r">
                     <div class="row">
-                        <div class="col-md-4">
-                            <a href="route_detail.html">
-								<img src="images/jiangxuan_4.jpg" th:src="@{/images/jiangxuan_4.jpg}" alt="">
+                        <div class="col-md-4"  th:each="route:${routes}" th:if="${routeStat.count} >= 6">
+                            <a href="route_detail.html" th:href="@{/detail/{rid}(rid=${route.rid})}"  >
+								<img src="images/jiangxuan_4.jpg" style="height: 140px" th:src="@{/{img}(img=${route.rimage})}"alt="">
 								<div class="has_border">
-									<h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-									<div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>									
+									<h3 th:text="${route.rname}">上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
+									<div class="price">网付价<em>￥</em><strong>[[${route.price}]]</strong><em>起</em></div>
 								</div>
 							</a>
                         </div>
-                        <div class="col-md-4">
+                     <!--   <div class="col-md-4">
                             <a href="route_detail.html">
 								<img src="images/jiangxuan_4.jpg" th:src="@{/images/jiangxuan_4.jpg}"alt="">
 								<div class="has_border">
@@ -348,7 +352,7 @@ xmlns:shiro=http://www.pollix.at/thymeleaf/shiro>
 									<div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>									
 								</div>
 							</a>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>
