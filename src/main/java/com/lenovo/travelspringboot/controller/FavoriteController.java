@@ -9,7 +9,6 @@ import com.lenovo.travelspringboot.service.FavoriteHandleService;
 import com.lenovo.travelspringboot.service.RouteHandleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -40,8 +38,37 @@ public class FavoriteController {
     }
 
 
+    /*    @GetMapping("/myfavorite")
+        public String myFavorite(HttpSession session,Model model) {
+            *//*
+     * 防止绕过登录直接访问我的收藏
+     *   1.检测session域的数据，不存在则返回首页，存在就去我的收藏
+     * 收藏：
+     *   1.在详情页可以添加收藏，保存对应的uid和rid即可
+     *          (点击收藏，在count要加一)
+     *   2.在我的收藏用这两个数据去查询你要的收藏，以收藏数量排行一下
+     *           (分页数据也需要)
+     * *//*
+
+        User user = (User) session.getAttribute("user");
+        if (user==null){
+            model.addAttribute("loginMyFav", "未登录没有权限访问我的收藏");
+//            return "/";
+        }else{
+            //收藏页面还要关系到分页，导航条
+            //TODO:收藏页面，分页，导航条
+            //当前的uid去找rid，rid从route里面找
+            List<Route> routeByUid = favoriteHandleService.findRouteByUid(user.getUid());
+            PageInfo<Route> routePageInfo = new PageInfo<>(routeByUid, 5);
+            model.addAttribute("routeMyList", routeByUid);
+            model.addAttribute("pageInfo", routePageInfo);
+
+        }
+        return "myfavorite";
+
+    }*/
     @GetMapping("/myfavorite")
-    public String myFavorite(HttpSession session,Model model) {
+    public String myFavorite(@RequestParam(value = "pn", defaultValue = "1") Integer pn,HttpSession session, Model model) {
         /*
          * 防止绕过登录直接访问我的收藏
          *   1.检测session域的数据，不存在则返回首页，存在就去我的收藏
@@ -53,15 +80,21 @@ public class FavoriteController {
          * */
 
         User user = (User) session.getAttribute("user");
-        if (user==null){
+        if (user == null) {
             model.addAttribute("loginMyFav", "未登录没有权限访问我的收藏");
 //            return "/";
-        }else{
+        } else {
+
             //收藏页面还要关系到分页，导航条
             //TODO:收藏页面，分页，导航条
             //当前的uid去找rid，rid从route里面找
+
+            PageHelper.startPage(pn, 5);
             List<Route> routeByUid = favoriteHandleService.findRouteByUid(user.getUid());
-            model.addAttribute("routeMyList", routeByUid);
+            PageInfo<Route> routePageInfo = new PageInfo<>(routeByUid, 5);
+            model.addAttribute("pageInfo", routePageInfo);
+          /*  model.addAttribute("routeMyList", routeByUid);
+            model.addAttribute("pageInfo", routePageInfo);*/
 
         }
         return "myfavorite";
