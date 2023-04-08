@@ -1,4 +1,4 @@
-# Travel-pringBoot
+# Travel-SpringBoot
 ## 项目介绍
 - 对技术框架的一次整合运用练习
 - 如何把所学的知识运用在实际的开发中
@@ -44,6 +44,7 @@
   5. 分页插件：PageHelper
   6. 数据库：MySql
   7. 前端模板：Thymeleaf
+  8. 前端框架：BootStrap
  - 一些关键点
   1. 第一次尝试用邮箱来实现注册验证功能
   2. 验证码采用redis来进行缓存（功能所需，直接使用，并不熟悉详情）
@@ -51,4 +52,4 @@
     -  开发工具 IDEA
     - jdk1.8
     - Mysql 5.5
-    - 项目框架 springboot + mybatis 
+    - 项目框架 SpringBoot + MyBatis 
