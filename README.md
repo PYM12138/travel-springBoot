@@ -47,8 +47,8 @@
  - 一些关键点
   1. 第一次尝试用邮箱来实现注册验证功能
   2. 验证码采用redis来进行缓存（功能所需，直接使用，并不熟悉详情）
- - 环境
-  - 开发工具 IDEA
-  - jdk1.8
-  - Mysql 5.5
-  - 项目框架 springboot + mybatis 
+ - 环境 
+    -  开发工具 IDEA
+    - jdk1.8
+    - Mysql 5.5
+    - 项目框架 springboot + mybatis 
