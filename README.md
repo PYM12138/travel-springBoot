@@ -1,4 +1,4 @@
-# travel-springBoot
+# Travel-pringBoot
 ## 项目介绍
 - 对技术框架的一次整合运用练习
 - 如何把所学的知识运用在实际的开发中
